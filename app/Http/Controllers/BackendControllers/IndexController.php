@@ -40,6 +40,6 @@ class IndexController
     public function index()
     {
         $users = User::get();
-        return view('user',compact('users'));
+        return view('backend.index',compact('users'));
     }
 }

@@ -39,7 +39,15 @@ class IndexController
      */
     public function index()
     {
+        return '首页';
+    }
+
+    /**
+     * @return string
+     */
+    public function home()
+    {
         $users = User::get();
-        return view('user',compact('users'));
+        return view('frontend.index',compact('users'));
     }
 }
