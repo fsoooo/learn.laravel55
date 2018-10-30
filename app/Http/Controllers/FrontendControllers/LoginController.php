@@ -10,6 +10,7 @@
 namespace App\Http\Controllers\FrontendControllers;
 
 use App\Helper\LogHelper;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
