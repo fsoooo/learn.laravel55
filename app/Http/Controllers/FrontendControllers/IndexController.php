@@ -12,6 +12,7 @@ namespace App\Http\Controllers\FrontendControllers;
 use App\Helper\LogHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class IndexController extends Controller
 {
@@ -39,7 +40,8 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return '首页';
+        $users = User::get();
+        return view('frontend.index',compact('users'));
     }
 
     /**
@@ -48,6 +50,6 @@ class IndexController extends Controller
     public function home()
     {
         $users = User::get();
-        return view('frontend.index',compact('users'));
+        return view('frontend.home',compact('users'));
     }
 }
