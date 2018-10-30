@@ -11,8 +11,9 @@ namespace App\Http\Controllers\ApiControllers;
 
 use App\Helper\LogHelper;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class IndexController
+class IndexController extends Controller
 {
 
     protected $request;

@@ -12,6 +12,6 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group(['prefix' => '/api', 'namespace' => 'ApiControllers'], function () {
+Route::group(['prefix' => '/', 'namespace' => 'ApiControllers'], function () {
     Route::get('index', 'IndexController@index');
 });

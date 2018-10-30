@@ -10,9 +10,9 @@
 namespace App\Http\Controllers\FrontendControllers;
 
 use App\Helper\LogHelper;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class LoginController
+class LoginController extends Controller
 {
 
     protected $request;

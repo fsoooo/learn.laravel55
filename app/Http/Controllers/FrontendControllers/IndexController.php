@@ -11,9 +11,9 @@ namespace App\Http\Controllers\FrontendControllers;
 
 use App\Helper\LogHelper;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Http\Controllers\Controller;
 
-class IndexController
+class IndexController extends Controller
 {
 
     protected $request;
