@@ -15,5 +15,3 @@
 include_once "web_routes/frontend.php";
 //后台路由
 include_once "web_routes/backend.php";
-//渠道路由
-include_once "web_routes/webapi.php";

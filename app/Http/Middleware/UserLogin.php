@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AdminRole
+class UserLogin
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class AdminRole
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!Auth::guard($guard)->user()->hasRole('admin')) {
-            return redirect('backend')->withErrors('暂无管理员相关权限！');
+        if (!Auth::guard($guard)->check()) {
+            return redirect('/login');
         }
         return $next($request);
     }

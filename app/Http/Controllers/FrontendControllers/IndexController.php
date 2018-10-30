@@ -7,7 +7,7 @@
  *
  */
 
-namespace App\Http\Controllers\TestControllers;
+namespace App\Http\Controllers\FrontendControllers;
 
 use App\Helper\LogHelper;
 use Illuminate\Http\Request;

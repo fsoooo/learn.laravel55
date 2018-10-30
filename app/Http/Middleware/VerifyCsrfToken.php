@@ -12,17 +12,7 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        //
-        'rest-api/*',
-        'channelsapi/*',
-        '/insurance/order_status',
-        '/ins/call_back',
-        '/ins/quote',
-        '/backend/set_brokerage/set_brokerage_post',
-        '/backend/setting/*',
-        '/backend/ajax/uploadImage',
-	'/yunda/*',
+        //忽略 判断CSRF的路由
         '/api/*',
-	'/webapi/*',
     ];
 }

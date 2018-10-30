@@ -73,10 +73,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         //my middleware
         'admin.login' => \App\Http\Middleware\AdminLogin::class,
-        'admin.role' => \App\Http\Middleware\AdminRole::class,
-        'owner.role' => \App\Http\Middleware\OwnerRole::class,
-        'worker.role' => \App\Http\Middleware\WorkerRole::class,
-        'check.channels.api.sign' => \App\Http\Middleware\CheckChannelsApiSign::class,
-        'check.channels.api.token' => \App\Http\Middleware\CheckChannelsApiAccessToken::class,
+        'user.login' => \App\Http\Middleware\UserLogin::class,
     ];
 }
