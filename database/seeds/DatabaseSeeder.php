@@ -13,6 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         //需要被执行填充的类
         $this->call(UsersSeeder::class);
-        $this->call(SmsModelSeeder::class);
+        $this->call(SmsModelsSeeder::class);
     }
 }

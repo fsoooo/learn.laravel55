@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\SmsModel;
+use App\Models\SmsModels;
 use Illuminate\Database\Seeder;
 
-class SmsModelSeeder extends Seeder
+class SmsModelsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

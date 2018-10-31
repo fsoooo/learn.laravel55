@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: wangsl
+ * Users: wangsl
  * Date: 2018/10/29
  * Time: 10:12
  *
@@ -11,7 +11,7 @@ namespace App\Http\Controllers\BackendControllers;
 
 use App\Helper\LogHelper;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Users;
 use App\Http\Controllers\Controller;
 
 class IndexController extends Controller
@@ -40,7 +40,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $users = User::get();
+        $users = Users::get();
         return view('backend.index',compact('users'));
     }
 }
