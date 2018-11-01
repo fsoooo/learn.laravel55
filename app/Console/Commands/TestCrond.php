@@ -12,7 +12,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Services\LogHelper;
 
-class Test extends Command
+class TestCrond extends Command
 {
     /**
      * The name and signature of the console command.
