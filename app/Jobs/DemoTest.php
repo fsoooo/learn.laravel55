@@ -30,6 +30,6 @@ class DemoTest implements ShouldQueue
      */
     public function handle()
     {
-        Log::info($this->param .'用户开始出单');
+        Log::info($this->param);
     }
 }

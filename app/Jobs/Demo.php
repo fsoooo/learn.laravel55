@@ -45,7 +45,7 @@ class Demo implements ShouldQueue
      */
     public function handle()
     {
-        Log::info($this->param .'用户开始支付');
-        DemoTest::dispatch($this->param);//异步
+        Log::info($this->param);
+        DemoTest::dispatch('测试异步操作:步骤3');//异步
     }
 }
