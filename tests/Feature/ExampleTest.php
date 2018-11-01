@@ -16,12 +16,14 @@ class ExampleTest extends TestCase
     {
         $response = $this->withHeaders([
             'X-Header' => 'LaravelAcademy',
-        ])->json('get', '/api/index', ['name' => '学院君']);
+        ])->json('get', '/api/index', ['name' => '测试API接口']);
 
         $response
             ->assertStatus(200)
             ->assertJson([
-                'created' => true,
+                'code' => "200",
+                'message' => "请求接口成功",
+                'data' => ['desc'=>'测试API路由'],
             ]);
     }
 }
