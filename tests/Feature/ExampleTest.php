@@ -14,8 +14,11 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
+//        $response = $this->get('/');
+//
+//        $response->assertStatus(200);
+        $response = $this->withoutMiddleware()->get('/api/index');
 
-        $response->assertStatus(200);
+        dump($response->content());
     }
 }

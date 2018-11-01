@@ -13,5 +13,5 @@
 |
 */
 Route::group(['prefix' => '/', 'namespace' => 'ApiControllers'], function () {
-    Route::get('index', 'JobsController@index');
+    Route::get('index', 'IndexController@index');
 });
