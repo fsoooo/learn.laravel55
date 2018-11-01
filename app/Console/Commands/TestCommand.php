@@ -44,16 +44,7 @@ class TestCommand extends Command
         $count = 0;
         foreach ($users as $user) {
             if (empty($users->remember_token)) {
-                $operate = new Users();
-                $operate->name = $user->name;
-                $operate->real_name = $user->real_name;
-                $operate->email = $user->email;
-                $operate->phone = $user->phone;
-                $operate->code = $user->code;
-                $operate->occupation = $user->occupation;
-                $operate->address = $user->address;
-                $operate->type = $user->type;
-                $operate->password = $user->password;
+                $operate = Users::find($user['id']);
                 $operate->remember_token = md5(time() . "abcAbc");
                 $operate->save();
                 $count++;
