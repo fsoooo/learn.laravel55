@@ -1,5 +1,5 @@
 <?php
-namespace App\Helper;
+namespace App\Services;
 
 use Carbon\Carbon;
 use DB;
@@ -14,7 +14,7 @@ class LogHelper{
      */
     static public function logs($data, $from=null, $type=null,$file_name='laravel_logs')
     {
-        $log = "[ ".$file_name." ] [" . $from . '] [' .$type . "] [" . Carbon::now() . "] \n" . json_encode($data, JSON_UNESCAPED_UNICODE) . "\n";
+        $log = "[" . $from . '] [' .$type . "] [" . Carbon::now() . "] \n" . json_encode($data, JSON_UNESCAPED_UNICODE) . "\n";
         $date = date('Y_m_d');
         $file_path = storage_path('logs/'.$file_name.'_'. $date .'.log');
         file_put_contents($file_path, $log, FILE_APPEND);

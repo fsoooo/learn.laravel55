@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helper;
+namespace App\Services;
 
 /**
  * 获取当前毫秒值公共类

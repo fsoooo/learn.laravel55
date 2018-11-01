@@ -10,7 +10,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
+use App\Services\LogHelper;
 
 class Test extends Command
 {
@@ -36,7 +36,7 @@ class Test extends Command
     public function handle()
     {
         $log = "定时任务开始了" . date('Y_m_d H_m_s') . "\n";
-        Log::info($log);
+        LogHelper::logs($log,'Crond','test','commands_log');
     }
 
 }

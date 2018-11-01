@@ -1,5 +1,5 @@
 <?php
-namespace App\Helper;
+namespace App\Services;
 
 /**
  * 出入省份证号 返回相应信息
@@ -8,7 +8,7 @@ namespace App\Helper;
  * $result['sex']       性别 男 女
  * $result['tdate']     生日，格式如：2012-11-15
  * Class IdentityCardHelp
- * @package App\Helper
+ * @package App\Services
  */
 
 class IdentityCardHelp{

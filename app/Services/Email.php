@@ -1,5 +1,5 @@
 <?php
-namespace App\Helper;
+namespace App\Services;
 /**
 * 邮件发送类
 * 支持发送纯文本邮件和HTML格式的邮件，可以多收件人，多抄送，多秘密抄送，带附件的邮件

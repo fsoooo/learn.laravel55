@@ -3,105 +3,73 @@
  * Created by PhpStorm.
  * Users: wangsl
  * Date: 2018/04/20
- * Time: 10:41
+ * Time: 14:41
  */
 
-namespace App\Helper;
+namespace App\Services;
 
 use DB;
 use Ixudra\Curl\Facades\Curl;
 
 class AesCrypt
 {
-    /**
-     * This was AES-128 / CBC / PKCS5Padding
-     * return base64_encode string
-     * @author Terry
-     * @param string $plaintext
-     * @param string $key
-     * @return string
-     */
-    public static function AesEncrypt($plaintext, $key = null)
-    {
-        $plaintext = trim($plaintext);
-        if ($plaintext == '') return '';
-        $size = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
-        //PKCS5Padding
-        $padding = $size - strlen($plaintext) % $size;
-        // Ìí¼ÓPadding
-        $plaintext .= str_repeat(chr($padding), $padding);
-        $module = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
-        $key = self::substr($key, 0, mcrypt_enc_get_key_size($module));
-        $iv = str_repeat("\0", $size);      //´Ë´¦µ°ËéÒ»µØ°¡£¬javaÀïÃæµÄ16¸ö¿ÕÊý×é¶ÔÓ¦µÄÊÇ\0.ÓÉÓÚ²»¶®java£¬Õâ¸öµØ·½°Ù¶ÈÁËºÜ¾Ã£¬ºóÀ´ÊÇÇë½ÌÖ÷¹Ü²Å¸ã¶¨µÄ¡£
-        /* Intialize encryption */
-        mcrypt_generic_init($module, $key, $iv);
 
+	private function _pkcs5Pad($text, $blockSize)
+	{
+		$pad = $blockSize - (strlen($text) % $blockSize);
+		return $text . str_repeat(chr($pad), $pad);
+	}
 
-        /* Encrypt data */
-        $encrypted = mcrypt_generic($module, $plaintext);
+	private function _pkcs5Unpad($text)
+	{
+		$end = substr($text, -1);
+		$last = ord($end);
+		$len = strlen($text) - $last;
+		if(substr($text, $len) == str_repeat($end, $last))
+		{
+			return substr($text, 0, $len);
+		}
+		return false;
+	}
 
+	public function encrypt($encrypt, $key)
+	{
+		$blockSize = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_ECB);
+		$paddedData = $this->_pkcs5Pad($encrypt, $blockSize);
+		$ivSize = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_ECB);
+		$iv = mcrypt_create_iv($ivSize, MCRYPT_RAND);
+		$key2 = substr(openssl_digest(openssl_digest($key, 'sha1', true), 'sha1', true), 0, 16);
+		$encrypted = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key2, $paddedData, MCRYPT_MODE_ECB, $iv);
+//		return base64_encode($encrypted);
+		$string = $encrypted;
+		$arr1 = str_split($string, 1);
+		$str = '';
+		foreach($arr1 as $akey=>$aval){
+			$str.= bin2hex($aval);
+		}
+		return $str;
+	}
 
-        /* Terminate encryption handler */
-        mcrypt_generic_deinit($module);
-        mcrypt_module_close($module);
-        return base64_encode($encrypted);
-    }
+	public function decrypt($decrypt, $key)
+	{
+		$decoded = $this->hex2bin($decrypt);
+		$blockSize = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_ECB);
+		$iv = mcrypt_create_iv($blockSize, MCRYPT_RAND);
+		$key2 = substr(openssl_digest(openssl_digest($key, 'sha1', true), 'sha1', true), 0, 16);
+		$decrypted = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key2, $decoded, MCRYPT_MODE_ECB, $iv);
+		return $this->_pkcs5Unpad($decrypted);
+	}
 
-    /**
-     * Returns the length of the given string.
-     * If available uses the multibyte string function mb_strlen.
-     * @param string $string the string being measured for length
-     * @return integer the length of the string
-     */
-    private static function strlen($string)
-    {
-        return extension_loaded('mbstring') ? mb_strlen($string, '8bit') : strlen($string);
-    }
+	function hex2bin($str)
+	{
+		$sbin = "";
+		$len = strlen($str);
+		for($i = 0; $i < $len; $i += 2)
+		{
+			$sbin .= pack("H*", substr($str, $i, 2));
+		}
 
+		return $sbin;
+	}
 
-    /**
-     * Returns the portion of string specified by the start and length parameters.
-     * If available uses the multibyte string function mb_substr
-     * @param string $string the input string. Must be one character or longer.
-     * @param integer $start the starting position
-     * @param integer $length the desired portion length
-     * @return string the extracted part of string, or FALSE on failure or an empty string.
-     */
-    private static function substr($string, $start, $length)
-    {
-        return extension_loaded('mbstring') ? mb_substr($string, $start, $length, '8bit') : substr($string, $start, $length);
-    }
-
-    /**
-     * This was AES-128 / CBC / PKCS5Padding
-     * @author Terry
-     * @param string $encrypted base64_encode encrypted string
-     * @param string $key
-     * @throws CException
-     * @return string
-     */
-    public static function AesDecrypt($encrypted, $key = null)
-    {
-        if ($encrypted == '') return '';
-        $ciphertext_dec = base64_decode($encrypted);
-        $module = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
-        $key = self::substr($key, 0, mcrypt_enc_get_key_size($module));
-
-        $iv = str_repeat("\0", 16);    //½âÃÜµÄ³õÊ¼»¯ÏòÁ¿ÒªºÍ¼ÓÃÜÊ±Ò»Ñù¡£
-        /* Initialize encryption module for decryption */
-        mcrypt_generic_init($module, $key, $iv);
-
-
-        /* Decrypt encrypted string */
-        $decrypted = mdecrypt_generic($module, $ciphertext_dec);
-
-
-        /* Terminate decryption handle and close module */
-        mcrypt_generic_deinit($module);
-        mcrypt_module_close($module);
-        $a = rtrim($decrypted, "\0");
-
-
-        return rtrim($decrypted, "\0");
-    }
 }

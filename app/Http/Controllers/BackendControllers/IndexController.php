@@ -9,7 +9,7 @@
 
 namespace App\Http\Controllers\BackendControllers;
 
-use App\Helper\LogHelper;
+use App\Services\LogHelper;
 use Illuminate\Http\Request;
 use App\Models\Users;
 use App\Http\Controllers\Controller;
@@ -19,7 +19,7 @@ class IndexController extends Controller
 
     protected $request;
 
-    protected $log_helper;
+    protected $log_Services;
 
     protected $input;
 
@@ -31,7 +31,7 @@ class IndexController extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->log_helper = new LogHelper();
+        $this->log_Services = new LogHelper();
         $this->input = $this->request->all();
     }
 

@@ -5,7 +5,7 @@
  * Date: 2018/04/12
  * Time: 11:05
  */
-namespace App\Helper;
+namespace App\Services;
 
 
 class IPHelper

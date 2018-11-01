@@ -2,12 +2,12 @@
 
 namespace App\Jobs;
 
+use App\Services\LogHelper;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Facades\Log;
 
 class DemoTest implements ShouldQueue
 {
@@ -30,6 +30,6 @@ class DemoTest implements ShouldQueue
      */
     public function handle()
     {
-        Log::info($this->param);
+        LogHelper::logs($this->param, 'Jobs', 'Test', 'queue_jobs_logs');
     }
 }

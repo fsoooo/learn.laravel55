@@ -6,7 +6,7 @@
  * Time: 19:05
  */
 
-namespace App\Helper;
+namespace App\Services;
 
 
 class IsPhone

@@ -5,9 +5,9 @@
  * Date: 2018/4/26
  * Time: 14:27
  */
-namespace App\Helper;
+namespace App\Services;
 
-use App\Helper\RsaSignHelp;
+use App\Services\RsaSignHelp;
 use \Illuminate\Support\Facades\Redis;
 
 class TokenHelper
