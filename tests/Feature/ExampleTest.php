@@ -14,11 +14,14 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-//        $response = $this->get('/');
-//
-//        $response->assertStatus(200);
-        $response = $this->withoutMiddleware()->get('/api/index');
+        $response = $this->withHeaders([
+            'X-Header' => 'LaravelAcademy',
+        ])->json('get', '/api/index', ['name' => '学院君']);
 
-        dump($response->content());
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'created' => true,
+            ]);
     }
 }
