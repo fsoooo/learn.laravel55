@@ -2,7 +2,7 @@
 //前台路由
 Route::group(['namespace' => 'FrontendControllers'], function () {
     //前台路由
-    Route::get('/', 'JobsController@index');
+    Route::get('/', 'IndexController@index');
     Route::get('login', 'LoginController@login');
     Route::get('register', 'LoginController@register');
     //需要登录
