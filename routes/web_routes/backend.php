@@ -4,6 +4,7 @@ Route::group(['prefix' => '/backend', 'namespace' => 'BackendControllers'], func
     Route::get('login', 'LoginController@login');
     //需要登录
     Route::group(['middleware' => 'admin.login'], function () {
-        Route::get('home', 'JobsController@index');
+        Route::get('/', 'IndexController@index');
+        Route::get('/home', 'IndexController@index');
     });
 });
