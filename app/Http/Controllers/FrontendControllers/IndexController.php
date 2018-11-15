@@ -13,6 +13,7 @@ use App\Services\LogHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Users;
+use \Illuminate\Support\Facades\Redis;
 
 class IndexController extends Controller
 {
@@ -51,5 +52,15 @@ class IndexController extends Controller
     {
         $users = Users::get();
         return view('frontend.home',compact('users'));
+    }
+
+    public function redisLock(){
+        Redis::set('test01  ','1111');
+        dd(Redis::get('test'));
+    }
+
+    public function redisUnlock(){
+        Redis::set('test02','1111');
+        dd(Redis::get('test'));
     }
 }
